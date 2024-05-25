@@ -9,6 +9,7 @@
 **/obj/
 # Rider ignored files
 .idea/ 
+*.sln.DotSettings.user
 # Editor-based HTTP Client requests
 /httpRequests/
 # Datasource local storage ignored files

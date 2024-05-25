@@ -71,7 +71,7 @@ internal abstract class Administracion
 
     abstract class Mamifero : Animal
     {
-        public Mamifero(string nombre, bool enfermo, bool alimentado) : base(nombre, enfermo, alimentado)
+        protected Mamifero(string nombre, bool enfermo, bool alimentado) : base(nombre, enfermo, alimentado)
         {
             Especie = TipoAnimal.Mamifero;
         }
@@ -160,7 +160,7 @@ internal abstract class Administracion
 
     abstract class Planta(bool hidratada) : ISerVivo
     {
-        public bool Hidratada { get; set; } = hidratada;
+        protected bool Hidratada { get; set; } = hidratada;
 
         public void Hidratar()
         {
@@ -172,8 +172,8 @@ internal abstract class Administracion
 
     class PlantaCarnivora(bool hidratada, bool alimentada) : Planta(hidratada)
     {
-        public bool Alimentada { get; set; } = alimentada;
-        public TipoComida Comida => TipoComida.Insectos;
+        bool Alimentada { get; } = alimentada;
+        static TipoComida Comida => TipoComida.Insectos;
 
         public void Alimentar()
         {
