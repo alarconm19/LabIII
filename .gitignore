@@ -15,3 +15,8 @@
 # Datasource local storage ignored files
 /dataSources/
 /dataSources.local.xml
+# Projects that are not mine
+adoNetDesconectado/
+Archivos/
+Empresas/
+FormulariosMDI/
