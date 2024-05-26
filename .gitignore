@@ -4,6 +4,7 @@
 *.code-workspace
 # Visual Studio ignored files
 .vs/
+.vscode/    
 # Ignore all bin an obj files
 **/bin/
 **/obj/
@@ -15,7 +16,7 @@
 # Datasource local storage ignored files
 /dataSources/
 /dataSources.local.xml
-# Projects that are not mine
+# others projects
 adoNetDesconectado/
 Archivos/
 Empresas/
