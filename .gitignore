@@ -3,16 +3,15 @@
 /workspace.xml
 *.code-workspace
 # Visual Studio ignored files
-.vs/
-.vscode/    
+**/.vs/
+**/.vscode/
 # Ignore all bin an obj files
 **/bin/
 **/obj/
 # Rider ignored files
-.idea/ 
-*.sln.DotSettings.user
-# Editor-based HTTP Client requests
-/httpRequests/
+**/.idea/
+**/*.sln.DotSettings.user
+
 # Datasource local storage ignored files
 /dataSources/
 /dataSources.local.xml
