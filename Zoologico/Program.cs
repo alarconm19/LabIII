@@ -17,348 +17,156 @@ cualquier tipo de animal, incluida la planta carnívora.
 
 namespace Zoologico;
 
-
-internal abstract class Administracion
+internal static class Administracion
 {
-    enum TipoAnimal
+    public static void Main()
     {
-        Mamifero,
-        Ave,
-        Pez
-    }
+        List<Animal> animales = [];
+        List<Planta> plantas = [];
+        //List<Cuidador> cuidadores = [];
 
-    enum TipoComida
-    {
-        Carne,
-        Frutas,
-        Semillas,
-        PecesPequenos,
-        Algas,
-        Insectos
-    }
+        int opcionMenuPrinc;
 
-    interface ISerVivo;
-
-    abstract class Animal(string nombre, bool enfermo, bool alimentado) : ISerVivo
-    {
-        string Nombre { get; } = nombre;
-        protected TipoAnimal Especie { get; init; }
-        protected TipoComida Comida { get; init; }
-        bool Enfermo { get; set; } = enfermo;
-        bool Alimentado { get; set; } = alimentado;
-
-        public void Alimentar()
+        do
         {
-            Console.WriteLine($"Se esta alimentando al animal con {Comida}...");
-            Alimentado = true;
-            Console.WriteLine("El animal ha comido. ");
-        }
+            Console.WriteLine("\n\t\t Administracion de Zoologico ");
+            Console.WriteLine(
+                    "1. Agregar animal o planta \n2. Agregar cuidador \n3. Alimentar animal o planta \n4. Curar o hidratar \n5. Mostrar todos los seres vivos del zoologico. \n6. Mostrar todos los cuidadores. \n7. Salir");
+            Console.Write("Seleccione una opcion: ");
 
-        public void Curar()
-        {
-            Console.WriteLine("Se esta curando al animal...");
-            Enfermo = true;
-            Console.WriteLine("El animal ha sido curado. ");
-        }
+            opcionMenuPrinc = int.Parse(Console.ReadLine() ?? string.Empty);
 
-        
-
-        public override string ToString()
-        {
-            return $"Nombre: {Nombre} / Especie: {Especie} / Alimentado : {Alimentado} / Enfermo: {Enfermo} / Tipo de comida: {Comida}";
-        }
-    }
-
-    abstract class Mamifero : Animal
-    {
-        protected Mamifero(string nombre, bool enfermo, bool alimentado) : base(nombre, enfermo, alimentado)
-        {
-            Especie = TipoAnimal.Mamifero;
-        }
-
-        public void Amamantar()
-        {
-            Console.WriteLine("El mamifero esta amamantando...");
-        }
-    }
-
-    class Leon : Mamifero
-    {
-        public Leon(string nombre, bool enfermo, bool alimentado) : base(nombre, enfermo, alimentado)
-        {
-            Comida = TipoComida.Carne;
-        }
-    }
-
-    class Chimpance : Mamifero
-    {
-        public Chimpance(string nombre, bool enfermo, bool alimentado) : base(nombre, enfermo, alimentado)
-        {
-            Comida = TipoComida.Frutas;
-        }
-    }
-
-    abstract class Ave : Animal
-    {
-        protected Ave(string nombre, bool enfermo, bool alimentado)
-                : base(nombre, enfermo, alimentado)
-        {
-            Especie = TipoAnimal.Ave;
-        }
-
-        public void Volar()
-        {
-            Console.WriteLine("El ave esta volando...");
-        }
-    }
-
-    class AguilaReal : Ave
-    {
-        public AguilaReal(string nombre, bool enfermo, bool alimentado) : base(nombre, enfermo, alimentado)
-        {
-            Comida = TipoComida.Carne;
-        }
-    }
-
-    class Pio : Ave
-    {
-        public Pio(string nombre, bool enfermo, bool alimentado) : base(nombre, enfermo, alimentado)
-        {
-            Comida = TipoComida.Semillas;
-        }
-    }
-
-    abstract class Pez : Animal
-    {
-        protected Pez(string nombre, bool enfermo, bool alimentado) : base(nombre, enfermo, alimentado)
-        {
-            Especie = TipoAnimal.Pez;
-        }
-
-        public void Nadar()
-        {
-            Console.WriteLine("El pez esta nadando...");
-        }
-    }
-
-    class PezPayaso : Pez
-    {
-        public PezPayaso(string nombre, bool enfermo, bool alimentado) : base(nombre, enfermo, alimentado)
-        {
-            Comida = TipoComida.PecesPequenos;
-        }
-    }
-
-    class PezDorado : Pez
-    {
-        public PezDorado(string nombre, bool enfermo, bool alimentado) : base(nombre, enfermo, alimentado)
-        {
-            Comida = TipoComida.Algas;
-        }
-    }
-
-
-    abstract class Planta(bool hidratada) : ISerVivo
-    {
-        protected bool Hidratada { get; set; } = hidratada;
-
-        public void Hidratar()
-        {
-            Console.WriteLine("Se esta regando la planta...");
-            Hidratada = true;
-            Console.WriteLine("La planta esta hidratada.");
-        }
-    }
-
-    class PlantaCarnivora(bool hidratada, bool alimentada) : Planta(hidratada)
-    {
-        bool Alimentada { get; } = alimentada;
-        static TipoComida Comida => TipoComida.Insectos;
-
-        public void Alimentar()
-        {
-            Console.WriteLine($"Se esta alimentado a la planta carnivora con {Comida}...");
-            Hidratada = true;
-            Console.WriteLine("La planta esta alimentada.");
-        }
-
-        public override string ToString()
-        {
-            return $"Alimentada: {Alimentada} / Hidratada {Hidratada} / Tipo de comida: {Comida}";
-        }
-    }
-
-
-    enum Turno
-    {
-        Mañana,
-        Tarde,
-        Noche
-    }
-
-    class Cuidador(string nombre, int edad, Turno turno)
-    {
-        string Nombre { get; } = nombre;
-        int Edad { get; } = edad;
-        Turno Turno { get; } = turno;
-
-        public override string ToString()
-        {
-            return $"Nombre: {Nombre} / Edad: {Edad} / Turno: {Turno}";
-        }
-    }
-
-
-    abstract class Negocio
-    {
-        public static void Main()
-        {
-            List<ISerVivo> zoologico = [];
-            List<Cuidador> cuidadores = [];
-
-            int opcionMenuPrinc;
-
-            do
+            switch (opcionMenuPrinc)
             {
-                Console.WriteLine("\n\t\t Administracion de Zoologico ");
-                Console.WriteLine(
-                        "1. Agregar animal o planta \n2. Agregar cuidador \n3. Alimentar animal o planta \n4. Curar o hidratar \n5. Mostrar todos los seres vivos del zoologico. \n6. Mostrar todos los cuidadores. \n7. Salir");
-                Console.Write("Seleccione una opcion: ");
+                case 1:
+                    Console.WriteLine("\n1. Animal \n2. Planta");
+                    Console.Write("Opcion: ");
+                    var aniorplan = int.Parse(Console.ReadLine()!);
 
-                opcionMenuPrinc = int.Parse(Console.ReadLine() ?? string.Empty);
+                    switch (aniorplan)
+                    {
+                        case 1:
+                            Console.Write("Ingrese el nombre: ");
+                            var nombre = Console.ReadLine()!;
 
-                switch (opcionMenuPrinc)
-                {
-                    case 1:
-                        Console.WriteLine("\n1. Animal \n2. Planta");
-                        Console.Write("Opcion: ");
-                        int aniorplan = int.Parse(Console.ReadLine()!);
+                            Console.Write("\n¿Esta enfermo? s/n: ");
+                            // Lee la entrada del usuario y la convierte en minúscula
+                            var respuesta = char.ToLower(Console.ReadKey().KeyChar);
+                            // Verifica si la respuesta es 's' (sí)
+                            var enfermo = respuesta == 's';
 
-                        switch (aniorplan)
-                        {
-                            case 1:
-                                Console.Write("Ingrese el nombre: ");
-                                string nombre = Console.ReadLine()!;
-
-                                Console.Write("\n¿Esta enfermo? s/n: ");
-                                // Lee la entrada del usuario y la convierte en minúscula
-                                char respuesta = char.ToLower(Console.ReadKey().KeyChar);
-                                // Verifica si la respuesta es 's' (sí)
-                                bool enfermo = respuesta == 's';
-
-                                Console.Write("\n¿Esta alimentado? s/n: ");
-                                respuesta = char.ToLower(Console.ReadKey().KeyChar);
-                                bool alimentado = respuesta == 's';
+                            Console.Write("\n¿Esta alimentado? s/n: ");
+                            respuesta = char.ToLower(Console.ReadKey().KeyChar);
+                            var alimentado = respuesta == 's';
 
 
-                                Console.WriteLine("\nSeleccione el tipo de animal: \n1. Mamifero \n2. Ave \n3. Pez");
-                                Console.Write("Opcion: ");
-                                int tipoani = int.Parse(Console.ReadLine()!);
+                            Console.WriteLine("\nSeleccione el tipo de animal: \n1. Mamifero \n2. Ave \n3. Pez");
+                            Console.Write("Opcion: ");
+                            var tipoani = int.Parse(Console.ReadLine()!);
 
-                                switch (tipoani)
-                                {
-                                    case 1:
-                                        Console.WriteLine("\n1. Leon \n2. Chimpance");
-                                        Console.Write("Opcion: ");
-                                        int tipomami = int.Parse(Console.ReadLine()!);
+                            switch (tipoani)
+                            {
+                                case 1:
+                                    Console.WriteLine("\n1. Leon \n2. Chimpance");
+                                    Console.Write("Opcion: ");
+                                    var tipomami = int.Parse(Console.ReadLine()!);
 
-                                        switch (tipomami)
-                                        {
-                                            case 1:
-                                                var leon = new Leon(nombre, enfermo, alimentado);
-                                                zoologico.Add(leon);
-                                                break;
+                                    switch (tipomami)
+                                    {
+                                        case 1:
+                                            var leon = new Leon(nombre, enfermo, alimentado);
+                                            animales.Add(leon);
+                                            break;
 
-                                            case 2:
-                                                var chimpance = new Chimpance(nombre, enfermo, alimentado);
-                                                zoologico.Add(chimpance);
-                                                break;
-                                        }
-                                        break;
+                                        case 2:
+                                            var chimpance = new Chimpance(nombre, enfermo, alimentado);
+                                            animales.Add(chimpance);
+                                            break;
+                                    }
+                                    break;
 
-                                    case 2:
-                                        Console.WriteLine("\n1. Aguila Real \n2. Pio");
-                                        Console.Write("Opcion: ");
-                                        int tipoave = int.Parse(Console.ReadLine()!);
+                                case 2:
+                                    Console.WriteLine("\n1. Aguila Real \n2. Pio");
+                                    Console.Write("Opcion: ");
+                                    int tipoave = int.Parse(Console.ReadLine()!);
 
-                                        switch (tipoave)
-                                        {
-                                            case 1:
-                                                var aguila = new AguilaReal(nombre, enfermo, alimentado);
-                                                zoologico.Add(aguila);
-                                                break;
+                                    switch (tipoave)
+                                    {
+                                        case 1:
+                                            var aguila = new AguilaReal(nombre, enfermo, alimentado);
+                                            animales.Add(aguila);
+                                            break;
 
-                                            case 2:
-                                                var pio = new Pio(nombre, enfermo, alimentado);
-                                                zoologico.Add(pio);
-                                                break;
-                                        }
-                                        break;
+                                        case 2:
+                                            var pio = new Pio(nombre, enfermo, alimentado);
+                                            animales.Add(pio);
+                                            break;
+                                    }
+                                    break;
 
-                                    case 3:
-                                        Console.WriteLine("\n1. Pez payaso \n2. Pez dorado");
-                                        Console.Write("Opcion: ");
-                                        int tipopez = int.Parse(Console.ReadLine()!);
+                                case 3:
+                                    Console.WriteLine("\n1. Pez payaso \n2. Pez dorado");
+                                    Console.Write("Opcion: ");
+                                    int tipopez = int.Parse(Console.ReadLine()!);
 
-                                        switch (tipopez)
-                                        {
-                                            case 1:
-                                                var pezPayaso = new PezPayaso(nombre, enfermo, alimentado);
-                                                zoologico.Add(pezPayaso);
-                                                break;
+                                    switch (tipopez)
+                                    {
+                                        case 1:
+                                            var pezPayaso = new PezPayaso(nombre, enfermo, alimentado);
+                                            animales.Add(pezPayaso);
+                                            break;
 
-                                            case 2:
-                                                var pezDorado = new PezDorado(nombre, enfermo, alimentado);
-                                                zoologico.Add(pezDorado);
-                                                break;
-                                        }
-                                        break;
-                                }
-                                break;
+                                        case 2:
+                                            var pezDorado = new PezDorado(nombre, enfermo, alimentado);
+                                            animales.Add(pezDorado);
+                                            break;
+                                    }
+                                    break;
+                            }
+                            break;
 
-                            case 2:
-                                Console.Write("\n¿Esta alimentada? s/n: ");
-                                respuesta = char.ToLower(Console.ReadKey().KeyChar);
-                                bool alimentada = respuesta == 's';
+                        case 2:
+                            Console.Write("\n¿Esta alimentada? s/n: ");
+                            respuesta = char.ToLower(Console.ReadKey().KeyChar);
+                            bool alimentada = respuesta == 's';
 
-                                Console.Write("\n¿Esta hidratada? s/n: ");
-                                respuesta = char.ToLower(Console.ReadKey().KeyChar);
-                                bool hidratada = respuesta == 's';
+                            Console.Write("\n¿Esta hidratada? s/n: ");
+                            respuesta = char.ToLower(Console.ReadKey().KeyChar);
+                            bool hidratada = respuesta == 's';
 
-                                var plantacarnivora = new PlantaCarnivora(hidratada, alimentada);
-                                zoologico.Add(plantacarnivora);
+                            var plantacarnivora = new PlantaCarnivora(hidratada, alimentada);
+                            plantas.Add(plantacarnivora);
 
-                                break;
-                        }
+                            break;
+                    }
 
-                        break;
+                    break;
 
-                    case 2:
+                case 2:
 
-                        break;
+                    break;
 
-                    case 3:
+                case 3:
 
-                        break;
+                    break;
 
-                    case 4:
+                case 4:
 
-                        break;
+                    break;
 
-                    case 5:
-                        foreach (var serVivo in zoologico)
-                        {
-                            Console.WriteLine(serVivo);
-                        }
+                case 5:
+                    foreach (var serVivo in animales)
+                    {
+                        Console.WriteLine(serVivo);
+                    }
 
-                        break;
+                    break;
 
-                    case 6:
+                case 6:
 
-                        break;
-                }
+                    break;
+            }
 
-            } while (opcionMenuPrinc != 7);
-        }
+        } while (opcionMenuPrinc != 7);
     }
 }

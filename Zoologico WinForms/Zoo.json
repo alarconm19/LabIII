@@ -1,0 +1,42 @@
+{
+  "Animales": [
+    {
+      "Nombre": "Simba",
+      "Clase": 0,
+      "Especie": 0,
+      "Comida": 0,
+      "Enfermo": true,
+      "Alimentado": false
+    },
+    {
+      "Nombre": "Odas",
+      "Clase": 1,
+      "Especie": 2,
+      "Comida": 0,
+      "Enfermo": false,
+      "Alimentado": false
+    },
+    {
+      "Nombre": "trea",
+      "Clase": 2,
+      "Especie": 4,
+      "Comida": 4,
+      "Enfermo": false,
+      "Alimentado": false
+    }
+  ],
+  "Plantas": [
+    {
+      "Id": "09f95fde-3343-4297-ad37-0ada2fe9f412",
+      "Especie": 0,
+      "Hidratada": true
+    }
+  ],
+  "Cuidadores": [
+    {
+      "Nombre": "Marcos",
+      "Edad": 22,
+      "Turno": 2
+    }
+  ]
+}
