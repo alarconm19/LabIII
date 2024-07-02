@@ -1,8 +1,7 @@
-﻿using System.ComponentModel;
-
+﻿
 namespace Zoologico
 {
-    public abstract class Animal
+    public abstract class Animal : ISerVivo
     {
         public string? Nombre { get; set; }
         public ClaseAnimal Clase { get; init; }
@@ -39,36 +38,10 @@ namespace Zoologico
         }
     }
 
-    public enum EspeciesAnimal
-    {
-        [Description("León")]
-        Leon,
-        [Description("Chimpance")]
-        Chimpance,
-        [Description("Aguila Real")]
-        AguilaReal,
-        [Description("Pío")]
-        Pio,
-        [Description("Pez Dorado")]
-        PezDorado,
-        [Description("Pez Payaso")]
-        PezPayaso
-    }
-
     public enum ClaseAnimal
     {
         Mamifero,
         Ave,
         Pez
-    }
-
-    public enum TiposComida
-    {
-        Carne,
-        Frutas,
-        Semillas,
-        PecesPequenos,
-        Algas,
-        Insectos
     }
 }

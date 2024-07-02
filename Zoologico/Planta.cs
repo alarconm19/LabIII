@@ -1,9 +1,8 @@
 ﻿using System.ComponentModel;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Zoologico
 {
-    public abstract class Planta
+    public abstract class Planta : ISerVivo
     {
         public Guid Id { get; init; } = Guid.NewGuid();
         public EspeciesPlanta Especie { get; init; }

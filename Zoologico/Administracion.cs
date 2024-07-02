@@ -21,17 +21,19 @@ internal static class Administracion
 {
     public static void Main()
     {
-        List<Animal> animales = [];
-        List<Planta> plantas = [];
-        //List<Cuidador> cuidadores = [];
+        List<ISerVivo> seresVivos = [];
+        List<Cuidador> cuidadores = [];
 
         int opcionMenuPrinc;
 
         do
         {
             Console.WriteLine("\n\t\t Administracion de Zoologico ");
-            Console.WriteLine(
-                    "1. Agregar animal o planta \n2. Agregar cuidador \n3. Alimentar animal o planta \n4. Curar o hidratar \n5. Mostrar todos los seres vivos del zoologico. \n6. Mostrar todos los cuidadores. \n7. Salir");
+            Console.WriteLine("1. Agregar animal o planta." +
+                            "\n2. Agregar cuidador." +
+                            "\n3. Mostrar todos los seres vivos del zoologico." +
+                            "\n4. Mostrar todos los cuidadores." +
+                            "\n5. Salir");
             Console.Write("Seleccione una opcion: ");
 
             opcionMenuPrinc = int.Parse(Console.ReadLine() ?? string.Empty);
@@ -47,7 +49,7 @@ internal static class Administracion
                     {
                         case 1:
                             Console.Write("Ingrese el nombre: ");
-                            var nombre = Console.ReadLine()!;
+                            var nombreAnimal = Console.ReadLine()!;
 
                             Console.Write("\n¿Esta enfermo? s/n: ");
                             // Lee la entrada del usuario y la convierte en minúscula
@@ -74,13 +76,13 @@ internal static class Administracion
                                     switch (tipomami)
                                     {
                                         case 1:
-                                            var leon = new Leon(nombre, enfermo, alimentado);
-                                            animales.Add(leon);
+                                            var leon = new Leon(nombreAnimal, enfermo, alimentado);
+                                            seresVivos.Add(leon);
                                             break;
 
                                         case 2:
-                                            var chimpance = new Chimpance(nombre, enfermo, alimentado);
-                                            animales.Add(chimpance);
+                                            var chimpance = new Chimpance(nombreAnimal, enfermo, alimentado);
+                                            seresVivos.Add(chimpance);
                                             break;
                                     }
                                     break;
@@ -93,13 +95,13 @@ internal static class Administracion
                                     switch (tipoave)
                                     {
                                         case 1:
-                                            var aguila = new AguilaReal(nombre, enfermo, alimentado);
-                                            animales.Add(aguila);
+                                            var aguila = new AguilaReal(nombreAnimal, enfermo, alimentado);
+                                            seresVivos.Add(aguila);
                                             break;
 
                                         case 2:
-                                            var pio = new Pio(nombre, enfermo, alimentado);
-                                            animales.Add(pio);
+                                            var pio = new Pio(nombreAnimal, enfermo, alimentado);
+                                            seresVivos.Add(pio);
                                             break;
                                     }
                                     break;
@@ -112,13 +114,13 @@ internal static class Administracion
                                     switch (tipopez)
                                     {
                                         case 1:
-                                            var pezPayaso = new PezPayaso(nombre, enfermo, alimentado);
-                                            animales.Add(pezPayaso);
+                                            var pezPayaso = new PezPayaso(nombreAnimal, enfermo, alimentado);
+                                            seresVivos.Add(pezPayaso);
                                             break;
 
                                         case 2:
-                                            var pezDorado = new PezDorado(nombre, enfermo, alimentado);
-                                            animales.Add(pezDorado);
+                                            var pezDorado = new PezDorado(nombreAnimal, enfermo, alimentado);
+                                            seresVivos.Add(pezDorado);
                                             break;
                                     }
                                     break;
@@ -135,7 +137,7 @@ internal static class Administracion
                             bool hidratada = respuesta == 's';
 
                             var plantacarnivora = new PlantaCarnivora(hidratada, alimentada);
-                            plantas.Add(plantacarnivora);
+                            seresVivos.Add(plantacarnivora);
 
                             break;
                     }
@@ -143,30 +145,38 @@ internal static class Administracion
                     break;
 
                 case 2:
+                    Console.WriteLine("Ingrese el nombre del cuidador: ");
+                    var nombre = Console.ReadLine();
+
+                    Console.WriteLine("Ingrese la edad del cuidador: ");
+                    var edad = int.Parse(Console.ReadLine()!);
+
+                    Console.WriteLine("Turno: \n1. Mañana.\n2. Tarde.\n3. Noche.");
+                    Console.Write("Seleccione: ");
+                    var turno = (Turno) int.Parse(Console.ReadLine()!);
+
+                    Cuidador cuidador = new Cuidador(nombre, edad, turno);
+                    cuidadores.Add(cuidador);
 
                     break;
-
                 case 3:
-
-                    break;
-
-                case 4:
-
-                    break;
-
-                case 5:
-                    foreach (var serVivo in animales)
+                    foreach (var serVivo in seresVivos)
                     {
                         Console.WriteLine(serVivo);
                     }
-
                     break;
 
-                case 6:
+                case 4:
+                    foreach(var cui in cuidadores)
+                    {
+                        Console.WriteLine(cui.ToString());
+                    }
+                    break;
 
+                case 5:
                     break;
             }
 
-        } while (opcionMenuPrinc != 7);
+        } while (opcionMenuPrinc != 5);
     }
 }
